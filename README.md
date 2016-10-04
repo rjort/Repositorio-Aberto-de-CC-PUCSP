@@ -18,6 +18,26 @@ Criar uma issue com o conteudo para alguem colocar.
 * Projetos
 * Listas de exercicios resolvidos
 
-Favor separar em pastas.
+Em formato pdf ou imagem mesmo
 
-Seria daora criar arquivos .md explicando como o pessoal pode colaborar.
+Favor separar em pastas com o nome da materia
+
+_Exemplo:_
+
+* Laboratorio de Programacao 1
+
+  * Prof 1
+  
+    * Provas
+    
+    * Atividades
+    
+  * Prof 2
+  
+    * Provas
+    
+    * Atividades
+    
+    * Trabalho
+
+
