@@ -1,0 +1,9 @@
+
+
+void inserirItem(Item item) {
+
+     buf.bufferCircular[buf.in
+
+     
+
+}
