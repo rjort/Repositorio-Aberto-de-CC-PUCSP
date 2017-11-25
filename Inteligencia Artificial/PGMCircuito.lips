@@ -1,0 +1,73 @@
+; PGM baseado em regras e objetos para calcular probabilidade de saida do circuito abaixo
+; as entradas sao probabilidades limitadas em 0.5
+
+;
+;0-|    |
+;  | OR |-|    | 
+;0-|____| |    |---
+;0-|    | | OR |
+;  | OR |-|    |
+;0-|    | 
+;
+
+;DOMINIO
+
+;       | CIRCUITOOR |
+;       |     e1     |
+;       |     e2     |
+;       |_____ r ____|
+;      /       |      \
+;    /         |        \
+;| OR1 |    | OR2 |    | OR3 |
+;| e1  |    | e1  |    | e1  |
+;| e2  |    | e2  |    | e2  |
+;| s   |    | s   |    | s   |
+
+(circuito entrada 1 0.1)
+(circuito entrada 2 0.2)
+(circuito entrada 3 0.3)
+(circuito entrada 4 0.4)
+
+(defrule nRecebeEntrada
+    (circuito entrada1 ? pe1 &:(and (>= ?pe1 0)(<= ?pe1 0.5)))
+    (circuito entrada2 ? pe1 &:(and (>= ?pe1 0)(<= ?pe1 0.5)))
+    (circuito entrada3 ? pe1 &:(and (>= ?pe1 0)(<= ?pe1 0.5)))
+    (circuito entrada4 ? pe1 &:(and (>= ?pe1 0)(<= ?pe1 0.5)))
+=>
+(modify_instance [or1](e1 ?pe1))
+    (modify_instance [or1](e2 ?pe2))
+    (modify_instance [or2](e1 ?pe1))
+    (modify_instance [or2](e2 ?pe2))
+)
+
+(defrule rCalcOR
+?obj <- Object
+    (is-a circuitoOR)
+    (e1 ?pe1 &: (neq ?pe1 nil))
+    (e2 ?pe2 &: (neq ?pe2 nil))
+=>
+    (bind ?ps(- ( + ?pe1 ?pe2) (k ?pe1 ?pe2)))
+    (modify_instance ?obj(s ?ps))
+)
+
+(defrule n-passaValor
+    (object
+        (name [or1])
+        (r? ps1 &: (meq ?ps1 nil)) 
+    )
+    (object
+        (name [or2])
+        (r? ps2 &: (meq ?ps2 nil)) 
+    )
+=>
+    (modify_instance [or3](e1 ?ps1))
+    (modify_instance [or3](e2 ?ps2))
+)
+
+(defrule r-imprimeSaida
+    (object
+        (name [or3])
+    (s ?s))
+=>
+    (printout t "A probabilidade de saida do circuito é " ?s t)
+)
