@@ -1,0 +1,40 @@
+1)
+2) 
+- Considerando as atividades práticas 1 e 2, quais as diferenças encontradas nas ETPs do processo criado? Justifique o motivo.
+
+A diferença é que o processo criado na política de busca de página por demanda faz com queo processo necessite de operações de E/S, porque o processo referencia uma pagina com endereço de memória que não se encontra na memória principal (page fault ), o qual é verificado através do bit de validade, neste caso o sistema transfere a página da memória secundária para a memóriaprincipal ( page in) (Figura 2).Já o processo de criado na política de busca de página antecipada não realiza nenhuma operação E/S, pois quando ele é criado ele não possui espaço de endereçamento com referência à memória secundária, ou seja, já é carregado na memória principal (Figura 1)
+3) 
+- Qual o espaço de endereçamento real máximo de um processo? 
+
+Será a capacidade máxima é a quantidade de memória principal e secundária juntas.
+
+- Qual o espaço de endereçamento real mínimo de um processo?
+
+Seria o tamanho mínimo da tabela de mapeamento carregada 
+
+- Qual o tamanho da página virtual?
+O tamanho pode variar de acordo com o processador utilizado e a arquitetura do hardware,podendo em algumas arquiteturas ser configurado.
+
+
+4)
+- O que acontece quando a página virtual 3 (quarta página) é referenciada? 
+Pelo fato do limite de frames ser três, o número de pagina virtual (NPV) 0 passa a ter o Bit virtual a 0 e vai para arquivo de páginas modificadas para que o NPV 3 possa carregar para a memória principal. o endereço real e assim seu Bit v possa ser 0
+
+- E a página virtual 4?
+O NPV 1 passa para arquivo de páginas modificadas e passa a ter seu bit v 0 e o NPV 2 passa a ter o bit v 0, assim o limite de frames não é superado.
+
+- O que acontece quando a página virtual 0 é novamente referenciada? 
+Ela sai da arquivo de páginas modificadas e é carregada na memória principal novamente no mesmo endereço que foi carregada no primeiro momento, e a NPV 2 sai da memória principal
+
+- Observe se ao longo da execução do programa ocorre page out para o arquivo de paginação. Justifique.
+Ocorre page out porque o limite de frames já foi atingido, assim o primeiro frame deve ser guardado para que abra espaço para o próximo frame (FIFO).
+
+
+5)
+- Quais os critérios utilizados pelo simulador para selecionar o processo a ser transferido para o arquivo de paginação (swapout)?
+Seleciona o processo com menor chance de entrar na UCP.
+
+- Quando o processo deve ser transferido novamente para a memória principal (swap in)?
+Quando a limite de memória principal não for suficiente para todos os processos estarem carregados.
+
+https://pt.scribd.com/doc/58584098/Respostas-Simulador-SOsim-Arquitetura-de-Sistemas-Operacionais-Wellinghton-Dias-Periquito
