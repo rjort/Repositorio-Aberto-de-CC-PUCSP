@@ -1,0 +1,85 @@
+section .data
+msgin:   	 db    'Entre com a string:  ', 0      		; input msg
+lenm   	 	equ $-msgin           				 ; tamanho da mensagem
+
+msgou:   	 db    'Numero de vogais = ', 0    		 ; output msg
+lenmi   	 	equ $ - msgou           				 ; tamanho
+
+array1:   	 resb	65               				 ; array com o texto
+vogais:   	 db 	'a','e','i','o','u'          			; array com as vogais
+contador    	 db 	0
+
+section .text
+global main
+
+main:
+    	mov 	ebp, esp       		 ;  para debug
+   	 
+;print
+   	mov    edx, lenm 		 ;  tamanho da msg
+    	mov    ecx, msgin           	 ;  endereço da msg
+    	call     saida               	 
+
+    	; scan
+    	mov	edx, 50            	; tamanho do array
+   	mov	ecx, array1            	; carrega o endereço da array
+   	call 	entrada
+   	 
+    	mov	eax, [array1-1]
+   	mov	ebx, [vogais]
+   	mov	cx, 1        	 
+loop:   	 
+   	inc	1, eax                	; syntax oracle   	 
+   	cmp	eax, 10h           	; verifica se é \n
+    	jne 	loop2
+    	jmp 	done
+
+loop2:
+    	cmp 	eax, ebx            	; compara array[i] com vogais[j]
+    	inc 	contador            	; incremento do contador
+    	inc 	ebx
+    	cmp	cx, 5
+inc	cx    
+    	jle	loop2                	; enquanto menor
+    	jmp	loop
+
+done:
+    	movzx	ax, contador
+    	mov 	bl, 10
+    	div 	bl
+    	and 	al, 0x0f            	; converte dezenas
+    	and	ah, 0x0f            	; converte unidade
+    	mov	bh, al
+    	mov	bl, ah
+
+    	; print
+    	mov 	edx, lenmi
+    	mov 	ecx, msgou
+call	saida
+    	mov 	edx, 2
+    	mov 	ecx, bx
+    	call 	saida
+   	 
+        	int 	0x80
+        	ret
+
+saida:                            		; print
+    	push 	eax               	 
+    	push 	ebx
+    	mov	ebx, 1                	; sysout
+    	mov 	eax, 4                	; syscall number (sys_write)
+    	int	0x80
+    	pop	eax
+    	pop	ebx
+    	ret
+
+entrada:
+    	push 	eax
+    	push 	ebx
+    	mov 	ebx, 0
+    	mov	eax, 3
+    	int	0x80
+    	pop	eax
+    	pop	ebx
+
+
