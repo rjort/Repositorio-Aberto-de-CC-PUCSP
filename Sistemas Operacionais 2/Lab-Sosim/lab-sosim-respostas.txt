@@ -2,7 +2,10 @@
 2) 
 - Considerando as atividades práticas 1 e 2, quais as diferenças encontradas nas ETPs do processo criado? Justifique o motivo.
 
-A diferença é que o processo criado na política de busca de página por demanda faz com queo processo necessite de operações de E/S, porque o processo referencia uma pagina com endereço de memória que não se encontra na memória principal (page fault ), o qual é verificado através do bit de validade, neste caso o sistema transfere a página da memória secundária para a memóriaprincipal ( page in) (Figura 2).Já o processo de criado na política de busca de página antecipada não realiza nenhuma operação E/S, pois quando ele é criado ele não possui espaço de endereçamento com referência à memória secundária, ou seja, já é carregado na memória principal (Figura 1)
+O processo na política de busca de página antecipada após sua criação não possui espaço de endereçamento para com á memória secundária e já é criado na memória principal. Assim também não realiza operações E/S.
+
+Já o processo na política de busca de página por demanda necessida de operações E/S porque o processo não se encontra na memória principal e referencia um page fault. Isso é verificado pelo bit de validade verificável pela interface e o simulador transfere a página da memória secundária para a memória principal.
+
 3) 
 - Qual o espaço de endereçamento real máximo de um processo? 
 
